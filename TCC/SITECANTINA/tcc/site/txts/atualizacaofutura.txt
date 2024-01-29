@@ -1,0 +1,32 @@
+// Verifica a quantidade atual do produto no banco de dados
+    $consultaQuantidade = "SELECT quantidadeProduto FROM tblProdutos WHERE id = $produtoId";
+    $resultadoQuantidade = $conn->query($consultaQuantidade);
+    
+    if ($resultadoQuantidade->num_rows > 0) {
+        $row = $resultadoQuantidade->fetch_assoc();
+        $quantidadeExistente = $row['quantidadeProduto'];
+
+        if ($quantidadeComprada <= $quantidadeExistente) {
+            // Atualiza a quantidade disponível do produto no banco de dados
+            $novaQuantidade = $quantidadeExistente - $quantidadeComprada;
+            $sqlAtualizaQuantidade = "UPDATE quantidadeProduto SET quantidadeProduto = $novaQuantidade WHERE idProduto = $produtoId";
+            $conn->query($sqlAtualizaQuantidade);
+
+            // Prepara a query SQL para inserir dados na tabela de detalhes da compra do produto
+            $sqlDetalhesCompra = "INSERT INTO tblDadosCompraProdutos (idCompra, idProduto, quantidadeComprada) VALUES ((SELECT MAX(idCompra) FROM tblDadosCompra), '$produtoId', '$quantidadeComprada')";
+
+            // Executa a query SQL dos detalhes da compra do produto
+            if ($conn->query($sqlDetalhesCompra) === TRUE) {
+                echo 'Produto associado ao usuário com sucesso.';
+            } else {
+                echo 'Erro ao associar o produto ao usuário: ' . $conn->error;
+            }
+        } else {
+            echo 'Quantidade insuficiente do produto disponível.';
+        }
+    }
+
+    // Fecha a conexão com o banco de dados
+    $conn->close();
+}
+?>

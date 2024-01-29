@@ -1,0 +1,149 @@
+/* style.css */
+
+body {
+    overflow: hidden;
+    background: no-repeat;
+    background-size: cover;
+    background-image: url('etec11.jpg');
+    position: relative;
+    top: 180px;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.titulo{
+    color: white;
+
+}
+.box{
+    position: absolute;
+    background-color: red;
+    background-color: transparent;
+    backdrop-filter: blur(7px);
+    top: -200px;
+    border-radius: 20px;
+    height: 3000px;
+    left: -100px;
+    width: 3000px;
+}
+
+h1 {
+    top: 35px;
+    position: relative;
+    text-align: center;
+    margin-bottom: 0px;
+
+}
+
+form {
+    max-width: 200px;
+    margin: 0 auto;
+}
+.palavras{
+    align-items: center;
+    color: white;
+    left: -200px ;
+}
+label {
+    align-items: center;    
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+textarea,
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+input[type="submit"] {
+    width: 90%;
+    left: 40px;
+    position: relative;
+    height: 50px;
+    margin-top: 30px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+label {
+    margin-top: 5px;
+    position: relative;
+    
+}
+
+input[type="submit"]:hover {
+
+    background-color: #45a049;
+}
+
+.btnVoltarPosition{
+    background: transparent;
+    position: absolute;
+    margin-left: -120px;
+}
+
+.btnVoltar,
+.btnVoltarPosition{
+    top: 4%;
+    left: 5%;
+    position: fixed;
+    height: 70px;
+    width: 70px;
+    border-radius: 100%;
+    align-items: center;
+    display: flex;
+    background-color: white;
+    color: black;
+    font-size: 20px;
+ 
+}
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 40px; }
+.material-icons.md-48 { font-size: 48px; }
+
+.material-icons {
+    position: absolute;
+    left: 13px;
+   top: 11px;
+    font-family: 'Material Icons';
+    background: transparent;
+    font-size: 100px;  /* Preferred icon size */
+    display: inline-block;
+    align-items: center;
+
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+  }
+
+  .formulario{
+    position: absolute;
+    top: 170px;
+    width: 50%;
+    color: white;
+    left: 460px;
+  }
+
+
+
+  input{
+    height: 30px;
+    width: 80px;
+  }

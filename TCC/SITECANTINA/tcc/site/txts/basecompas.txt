@@ -1,0 +1,113 @@
+<?php
+include '../conexao.php';
+
+// Verifica se o formulário foi enviado
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Obtém os dados do formulário
+    $idUsuario = $_POST['idUsuario']; // ID do usuário selecionado no combobox
+    $produtoId = $_POST['produtoId']; // Produto selecionado no combobox
+    $quantidadeComprada = $_POST['quantidadeComprada']; // Quantidade de produtos comprados
+
+    // Verifica a quantidade atual do produto no banco de dados
+    $consultaQuantidade = "SELECT quantidadeProduto FROM tblProdutos WHERE idProduto = $produtoId";
+    $resultadoQuantidade = $conn->query($consultaQuantidade);
+
+    // Prepara a query SQL para inserção dos dados
+    $sql = "INSERT INTO tblDadosCompra (nomeProduto, descricaoProduto, precoProduto, quantidadeProduto) VALUES ('$nomeProduto', '$descricaoProduto', $precoProduto, $quantidadeProduto)";
+
+    // Executa a query SQL
+    if ($conn->query($sql) === TRUE) {
+        echo 'Compra cadastrada com sucesso.';
+    } else {
+        echo 'Erro ao cadastrar o compra: ' . $conn->error;
+    }
+
+    
+    
+
+    // Fecha a conexão com o banco de dados
+    $conn->close();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Associação de Produto com Usuário</title>
+    <!-- Adicione aqui seus links de estilo -->
+</head>
+
+<body>
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+        <div class="formulario">
+            <label for="idUsuario">Nome do Usuário</label>
+            <select id="idUsuario" name="idUsuario" required>
+                <?php
+                // Consulta os usuários da tabela "tblUsuario"
+                $consultaUsuarios = "SELECT idUsuario, nomeUsuario FROM tblUsuario";
+                $resultadoUsuarios = $conn->query($consultaUsuarios);
+                if ($resultadoUsuarios->num_rows > 0) {
+                    while ($row = $resultadoUsuarios->fetch_assoc()) {
+                        echo "<option value='" . $row['idUsuario'] . "'>" . $row['nomeUsuario'] . "</option>";
+                    }
+                }
+                ?>
+            </select>
+            <label for="idUsuario">Sobrenome</label>
+            <select id="idUsuario" name="idUsuario" required>
+                <?php
+                // Consulta os usuários da tabela "tblUsuario"
+                $consultaUsuarios = "SELECT idUsuario, sobrenomeUsuario FROM tblUsuario";
+                $resultadoUsuarios = $conn->query($consultaUsuarios);
+
+                if ($resultadoUsuarios->num_rows > 0) {
+                    while ($row = $resultadoUsuarios->fetch_assoc()) {
+                        echo "<option value='" . $row['idUsuario'] . "'>" . $row['sobrenomeUsuario'] . "</option>";
+                    }
+                }
+                ?>
+            </select>
+            <label for="idUsuario">Email</label>
+            <select id="idUsuario" name="idUsuario" required>
+                <?php
+                // Consulta os usuários da tabela "tblUsuario"
+                $consultaUsuarios = "SELECT idUsuario, emailUsuario FROM tblUsuario";
+                $resultadoUsuarios = $conn->query($consultaUsuarios);
+
+                if ($resultadoUsuarios->num_rows > 0) {
+                    while ($row = $resultadoUsuarios->fetch_assoc()) {
+                        echo "<option value='" . $row['idUsuario'] . "'>" . $row['emailUsuario'] . "</option>";
+                    }
+                }
+                ?>
+            </select>        
+            <form method="POST">
+        <label for="idProduto">Selecione um produto:</label>
+        <select name="idProduto" id="idProduto">
+            <?php
+            $sql = "SELECT idProduto, nomeProduto FROM tblProdutos";
+            $result = $conn->query($sql);
+
+            if ($result && $result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo '<option value="' . $row['idProduto'] . '">' . $row['nomeProduto'] . '</option>';
+                }
+            } else {
+                echo '<option value="">Nenhum produto encontrado</option>';
+            }
+            $conn->close();
+            ?>
+        </select>
+     <label for="quantidadeComprada">Quantidade</label>
+            <input type="number" id="quantidadeComprada" name="quantidadeComprada" required>
+            </h1>
+    </form>   
+    <input type="submit" name="submit" value="Confirmar Compra">
+        </div>
+    </form>
+</body>
+</html>
